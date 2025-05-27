@@ -6,7 +6,7 @@ pipeline {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'php-mysql-app'
         GIT_BRANCH = 'main'
-        GIT_REPO_URL = 'https://github.com/Ayushkr093/EmployeeMgmt.git' 
+        GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git' 
     }
 
     stages {
