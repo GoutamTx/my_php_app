@@ -30,6 +30,27 @@
             padding-bottom: 4rem;
         }
 
+         .btn-success {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    .table td, .table th {
+        text-align: center;
+        padding: 15px;
+    }
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+    .thead-dark {
+        background-color: #222;
+    }
+
     </style>
     <script>
         $(document).ready(function(){
@@ -57,16 +78,19 @@
 
     
     <!-- Masthead-->
-     <header class="masthead">
+    <header class="masthead">
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="wrapper">
                 <div class="text-center text-white">
                     <div>
-                        <h2 class="pull-left" style="color:pink;">Tx Employees Details</h2>
-                        <a href="create.php" class="btn btn-success pull-right">
+                        <!-- Title Section -->
+                        <h2 class="pull-left" style="color:#f5a623; font-size: 24px;">Tx Employees Details</h2>
+                        <!-- Add New Employee Button -->
+                        <a href="create.php" class="btn btn-success pull-right mt-3" style="margin-bottom: 20px;">
                             <i class="fa fa-plus"></i> Add New Employee
                         </a>
+
                         <?php
                         // Include config file
                         require_once "config.php";
@@ -75,31 +99,31 @@
                         $sql = "SELECT * FROM employees";
                         if ($result = mysqli_query($link, $sql)) {
                             if (mysqli_num_rows($result) > 0) {
-                                echo '<table class="table table-bordered table-striped table-hover" style="background-color:#333; border-radius: 10px;">';
+                                echo '<table class="table table-bordered table-striped table-hover" style="background-color:#343a40; border-radius: 10px; color:white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">';
                                     echo "<thead class='thead-dark'>";
                                         echo "<tr>";
-                                            echo "<th class='text-white' style='font-size: 16px;'>#</th>";
-                                            echo "<th class='text-white' style='font-size: 16px;'>Name</th>";
-                                            echo "<th class='text-white' style='font-size: 16px;'>Address</th>";
-                                            echo "<th class='text-white' style='font-size: 16px;'>Salary</th>";
-                                            echo "<th class='text-white' style='font-size: 16px;'>Action</th>";
+                                            echo "<th style='font-size: 16px;'>#</th>";
+                                            echo "<th style='font-size: 16px;'>Name</th>";
+                                            echo "<th style='font-size: 16px;'>Address</th>";
+                                            echo "<th style='font-size: 16px;'>Salary</th>";
+                                            echo "<th style='font-size: 16px;'>Action</th>";
                                         echo "</tr>";
                                     echo "</thead>";
                                     echo "<tbody>";
                                     while ($row = mysqli_fetch_array($result)) {
                                         echo "<tr>";
-                                            echo "<td class='text-white'>" . $row['id'] . "</td>";
-                                            echo "<td class='text-white'>" . $row['name'] . "</td>";
-                                            echo "<td class='text-white'>" . $row['address'] . "</td>";
-                                            echo "<td class='text-white'>" . $row['salary'] . "</td>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . $row['name'] . "</td>";
+                                            echo "<td>" . $row['address'] . "</td>";
+                                            echo "<td>" . $row['salary'] . "</td>";
                                             echo "<td class='text-center'>";
-                                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="View Record" data-toggle="tooltip" style="color: #28a745;">
+                                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="View Record" data-toggle="tooltip" style="color: #28a745; font-size: 18px;">
                                                           <span class="fa fa-eye"></span>
                                                       </a>';
-                                                echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip" style="color: #ffc107;">
+                                                echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip" style="color: #ffc107; font-size: 18px;">
                                                           <span class="fa fa-pencil"></span>
                                                       </a>';
-                                                echo '<a href="delete.php?id=' . $row['id'] . '" title="Delete Record" data-toggle="tooltip" style="color: #dc3545;">
+                                                echo '<a href="delete.php?id=' . $row['id'] . '" title="Delete Record" data-toggle="tooltip" style="color: #dc3545; font-size: 18px;">
                                                           <span class="fa fa-trash"></span>
                                                       </a>';
                                             echo "</td>";
@@ -124,7 +148,6 @@
         </div>
     </div>
 </header>
-
     
         <!-- Icons Grid-->
         <section class="features-icons bg-light text-center">
