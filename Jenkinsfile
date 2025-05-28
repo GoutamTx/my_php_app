@@ -4,10 +4,10 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
-        IMAGE_TAG = "${env.BUILD_ID}"  # Better versioning
+        IMAGE_TAG = "${env.BUILD_ID}"  // Better versioning - use double slash for Groovy comments
         GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
         GIT_BRANCH = 'main'
-        COMPOSE_FILE = 'docker-compose.yml'  # Explicit compose file
+        COMPOSE_FILE = 'docker-compose.yml'
     }
 
     stages {
@@ -31,7 +31,9 @@ pipeline {
                     usernameVariable: 'DOCKER_USER', 
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+                    sh """
+                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+                    """
                 }
             }
         }
