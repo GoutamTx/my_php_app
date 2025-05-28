@@ -10,15 +10,17 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                echo 'Cloning public repository...'
-                sh "git clone --branch ${GIT_BRANCH} ${GIT_REPO_URL} ."
-                script {
-                    env.COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    echo "Checked out commit: ${env.COMMIT_HASH}"
-                }
-            }
+    steps {
+        echo 'Cleaning workspace and cloning repository...'
+        deleteDir() // cleans up the workspace
+        sh "git clone --branch ${GIT_BRANCH} ${GIT_REPO_URL} ."
+        script {
+            env.COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+            echo "Checked out commit: ${env.COMMIT_HASH}"
         }
+    }
+}
+
 
         stage('Docker Login') {
             steps {
