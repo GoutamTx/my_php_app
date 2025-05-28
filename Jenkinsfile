@@ -4,54 +4,54 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
-        GIT_BRANCH = 'main'
+        IMAGE_TAG = 'latest'
         GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
+        GIT_BRANCH = 'main'
     }
 
     stages {
-        stage('Checkout') {
-    steps {
-        echo 'Cleaning workspace and cloning repository...'
-        deleteDir() // cleans up the workspace
-        sh "git clone --branch ${GIT_BRANCH} ${GIT_REPO_URL} ."
-        script {
-            env.COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-            echo "Checked out commit: ${env.COMMIT_HASH}"
+        stage('Clean Docker') {
+            steps {
+                sh '''
+                    docker rm -f $(docker ps -aq) 2>/dev/null || true
+                    docker rmi -f $(docker images -aq) 2>/dev/null || true
+                    docker volume prune -f || true
+                    docker network prune -f || true
+                '''
+            }
         }
-    }
-}
 
+        stage('Checkout Code') {
+            steps {
+                deleteDir()
+                sh "git clone --branch ${GIT_BRANCH} ${GIT_REPO_URL} ."
+            }
+        }
 
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo "$PASS" | docker login -u "$USER" --password-stdin'
                 }
             }
         }
 
-        stage('Build & Push Docker Image') {
+        stage('Build & Push Image') {
             steps {
-                script {
-                    def imageTag = "${DOCKER_REGISTRY}/${APP_IMAGE}:${env.COMMIT_HASH}"
-                    echo "Building and pushing image: ${imageTag}"
-                    docker.build(imageTag, ".")
-                    docker.image(imageTag).push()
-                }
+                sh "docker build -t ${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG} ."
+                sh "docker push ${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG}"
             }
         }
 
-        stage('Run with Docker Compose') {
+        stage('Deploy with Docker Compose') {
             steps {
-                sh 'docker-compose down --volumes --remove-orphans'
-                sh "TAG=${env.COMMIT_HASH} docker-compose up -d --build"
+                sh "TAG=${IMAGE_TAG} docker-compose up -d --build"
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up unused Docker resources...'
             sh 'docker system prune -f --volumes || true'
         }
     }
