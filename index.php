@@ -2,68 +2,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
-     <!-- Google fonts-->
-     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        .wrapper{
-            width: 600px;
-            margin: 0 auto;
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --text-dark: #5a5c69;
         }
-        table tr td:last-child{
-            width: 120px;
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fc;
+            color: var(--text-dark);
         }
-        header.masthead {
+        
+        .navbar {
+            padding: 1rem 2rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background: white;
+        }
+        
+        .navbar-brand img {
+            transition: transform 0.3s;
+        }
+        
+        .navbar-brand img:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-btn {
+            margin-left: 0.5rem;
+            border-radius: 0.35rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+        
+        .main-container {
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: none;
+            border-radius: 0.35rem 0.35rem 0 0 !important;
+            padding: 1rem 1.5rem;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #4e73df;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .table td {
+            vertical-align: middle;
+            padding: 1rem 0.75rem;
+            border-top: 1px solid #e3e6f0;
+        }
+        
+        .table tr:last-child td {
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        .action-btn {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.2rem;
+            margin-right: 0.25rem;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .btn-add {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.25rem;
+            font-weight: 500;
+        }
+        
+        .btn-add:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-1px);
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
             
-            padding-top: 2rem;
-            padding-bottom: 4rem;
+            .nav-btn {
+                margin: 0.25rem 0;
+                width: 100%;
+            }
+            
+            .table-responsive {
+                overflow-x: auto;
+            }
         }
-
     </style>
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
 </head>
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container">
-            <!-- <a class="navbar-brand" href="#!"> <img src="assets/img/Capture.PNG" alt="..." /></a> -->
-            <a href="https://www.testingxperts.com/">
-         <img alt="testingxperts" src="assets/img/Capture.PNG"
-         width="150" height="70"></a>          
-        
-            <div class="w3-right w3-hide-small">
-                <a href="#projects" class="btn btn-info">Projects</a>
-                <a href="#about" class="btn btn-secondary">About</a>
-                <a href="#contact" class="btn btn-success">Contact</a>
-                <a href="#contact" class="btn btn-success">Testimonals</a>
-                <a class="btn btn-warning" href="#signup">Sign Up</a>
+    <!-- Modern Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/Capture.PNG" alt="TestingXperts" width="150" height="70">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a href="#projects" class="nav-link nav-btn btn btn-outline-primary">Projects</a>
+                    <a href="#about" class="nav-link nav-btn btn btn-outline-secondary">About</a>
+                    <a href="#contact" class="nav-link nav-btn btn btn-outline-success">Contact</a>
+                    <a href="#testimonials" class="nav-link nav-btn btn btn-outline-info">Testimonials</a>
+                    <a href="#signup" class="nav-link nav-btn btn btn-warning">Sign Up</a>
+                </div>
             </div>
         </div>
     </nav>
-    <!-- Masthead-->
-    <header class="masthead" >
-    <div class="container position-relative">
-        <div class="row justify-content-center">
-            <div class="wrapper">        
-                <div class="text-center text-white">                
-                    <div>               
-                        <h2 class="pull-left" style="color:pink;"><u>Tx Employees Details</u></h2>
-                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>                    
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="m-0 font-weight-bold">Tx Employees Details</h4>
+                    <a href="create.php" class="btn btn-add text-white">
+                        <i class="bi bi-plus-lg me-1"></i> Add New Employee
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-responsive">
                         <?php
                         // Include config file
                         require_once "config.php";
@@ -72,27 +174,27 @@
                         $sql = "SELECT * FROM employees";
                         if($result = mysqli_query($link, $sql)){
                             if(mysqli_num_rows($result) > 0){
-                                echo '<table class="table table-bordered table-striped">';
+                                echo '<table class="table table-hover">';
                                     echo "<thead>";
                                         echo "<tr>";
-                                            echo "<th style='color:white;'>#</th>";
-                                            echo "<th style='color:white;'>Name</th>";
-                                            echo "<th style='color:white;'>Address</th>";
-                                            echo "<th style='color:white;'>Salary</th>";
-                                            echo "<th style='color:white;'>Action</th>";
+                                            echo "<th>#</th>";
+                                            echo "<th>Name</th>";
+                                            echo "<th>Address</th>";
+                                            echo "<th>Salary</th>";
+                                            echo "<th>Actions</th>";
                                         echo "</tr>";
                                     echo "</thead>";
                                     echo "<tbody>";
                                     while($row = mysqli_fetch_array($result)){
                                         echo "<tr>";
-                                            echo "<td style='color:white;'>" . $row['id'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['name'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['address'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['salary'] . "</td>";
+                                            echo "<td>" . $row['id'] . "</td>";
+                                            echo "<td>" . $row['name'] . "</td>";
+                                            echo "<td>" . $row['address'] . "</td>";
+                                            echo "<td>$" . number_format($row['salary'], 2) . "</td>";
                                             echo "<td>";
-                                                echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip" style="color:black;"><span class="fa fa-eye"></span></a>';
-                                                echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip" style="color:pink;"><span class="fa fa-pencil"></span></a>';
-                                                echo '<a href="delete.php?id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip" style="color:red;"><span class="fa fa-trash"></span></a>';
+                                                echo '<a href="read.php?id='. $row['id'] .'" class="action-btn btn btn-sm btn-info" title="View Record" data-bs-toggle="tooltip"><i class="bi bi-eye"></i></a>';
+                                                echo '<a href="update.php?id='. $row['id'] .'" class="action-btn btn btn-sm btn-primary" title="Update Record" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>';
+                                                echo '<a href="delete.php?id='. $row['id'] .'" class="action-btn btn btn-sm btn-danger" title="Delete Record" data-bs-toggle="tooltip"><i class="bi bi-trash"></i></a>';
                                             echo "</td>";
                                         echo "</tr>";
                                     }
@@ -101,170 +203,30 @@
                                 // Free result set
                                 mysqli_free_result($result);
                             } else{
-                                echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                                echo '<div class="alert alert-info"><em>No records were found.</em></div>';
                             }
                         } else{
-                            echo "Oops! Something went wrong. Please try again later.";
+                            echo '<div class="alert alert-danger">Oops! Something went wrong. Please try again later.</div>';
                         } 
                         // Close connection
                         mysqli_close($link);
                         ?>
-                    </div>  
-                </div>    
-            </div> 
-        </div>         
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-        </header>
-        <!-- Icons Grid-->
-        <section class="features-icons bg-light text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
-                            <h3>Fully Responsive</h3>
-                            <p class="lead mb-0"><b>TestingXperts</b> Ready to design fully responsive websites!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
-                            <h3>Bootstrap 5 Ready</h3>
-                            <p class="lead mb-0"><b>TestingXperts</b> Featuring the latest build of the new Bootstrap 5 framework!</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
-                            <h3>Easy to Use</h3>
-                            <p class="lead mb-0"><b>TestingXperts</b> makes life easier to customise your own content, or customize the source files!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Image Showcases-->
-        <section class="showcase">
-            <div class="container-fluid p-0">
-                <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-1.jpg')"></div>
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>Fully Responsive Design</h2>
-                        <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-2.jpg')"></div>
-                    <div class="col-lg-6 my-auto showcase-text">
-                        <h2>Updated For Bootstrap 5</h2>
-                        <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 5!</p>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div>
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2>Easy to Use & Customize</h2>
-                        <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Testimonials-->
-        <section class="testimonials text-center bg-light">
-            <div class="container">
-                <h2 class="mb-5">What people are saying...</h2>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-1.jpg" alt="..." />
-                            <h5>Margaret E.</h5>
-                            <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-2.jpg" alt="..." />
-                            <h5>Fred S.</h5>
-                            <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-3.jpg" alt="..." />
-                            <h5>Sarah W.</h5>
-                            <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to Action-->
-        <section class="call-to-action text-white text-center" id="signup">
-            <div class="container position-relative">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6">
-                        <h2 class="mb-4">Ready to get started? Sign up now!</h2>
-                        <form class="form-subscribe" id="contactFormFooter" data-sb-form-api-token="API_TOKEN">
-                            <!-- Email address input-->
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control form-control-lg" id="emailAddressBelow" type="email" placeholder="Email Address" data-sb-validations="required,email" />
-                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:required">Email Address is required.</div>
-                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:email">Email Address Email is not valid.</div>
-                                </div>
-                                <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
-                            </div>
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>                                   
-                                </div>
-                            </div>
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2021. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-         <!-- Bootstrap core JS-->
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
 </body>
 </html>
