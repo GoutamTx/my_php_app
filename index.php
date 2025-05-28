@@ -57,65 +57,75 @@
 
     
     <!-- Masthead-->
-    <header class="masthead" >
+     <header class="masthead">
     <div class="container position-relative">
         <div class="row justify-content-center">
-            <div class="wrapper">        
-                <div class="text-center text-white">                
-                    <div>               
+            <div class="wrapper">
+                <div class="text-center text-white">
+                    <div>
                         <h2 class="pull-left" style="color:pink;">Tx Employees Details</h2>
-                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>                    
+                        <a href="create.php" class="btn btn-success pull-right">
+                            <i class="fa fa-plus"></i> Add New Employee
+                        </a>
                         <?php
                         // Include config file
                         require_once "config.php";
                         
                         // Attempt select query execution
                         $sql = "SELECT * FROM employees";
-                        if($result = mysqli_query($link, $sql)){
-                            if(mysqli_num_rows($result) > 0){
-                                echo '<table class="table table-bordered table-striped">';
-                                    echo "<thead>";
+                        if ($result = mysqli_query($link, $sql)) {
+                            if (mysqli_num_rows($result) > 0) {
+                                echo '<table class="table table-bordered table-striped table-hover" style="background-color:#333; border-radius: 10px;">';
+                                    echo "<thead class='thead-dark'>";
                                         echo "<tr>";
-                                            echo "<th style='color:white;'>#</th>";
-                                            echo "<th style='color:white;'>Name</th>";
-                                            echo "<th style='color:white;'>Address</th>";
-                                            echo "<th style='color:white;'>Salary</th>";
-                                            echo "<th style='color:white;'>Action</th>";
+                                            echo "<th class='text-white' style='font-size: 16px;'>#</th>";
+                                            echo "<th class='text-white' style='font-size: 16px;'>Name</th>";
+                                            echo "<th class='text-white' style='font-size: 16px;'>Address</th>";
+                                            echo "<th class='text-white' style='font-size: 16px;'>Salary</th>";
+                                            echo "<th class='text-white' style='font-size: 16px;'>Action</th>";
                                         echo "</tr>";
                                     echo "</thead>";
                                     echo "<tbody>";
-                                    while($row = mysqli_fetch_array($result)){
+                                    while ($row = mysqli_fetch_array($result)) {
                                         echo "<tr>";
-                                            echo "<td style='color:white;'>" . $row['id'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['name'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['address'] . "</td>";
-                                            echo "<td style='color:white;'>" . $row['salary'] . "</td>";
-                                            echo "<td>";
-                                                echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip" style="color:black;"><span class="fa fa-eye"></span></a>';
-                                                echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip" style="color:pink;"><span class="fa fa-pencil"></span></a>';
-                                                echo '<a href="delete.php?id='. $row['id'] .'" title="Delete Record" data-toggle="tooltip" style="color:red;"><span class="fa fa-trash"></span></a>';
+                                            echo "<td class='text-white'>" . $row['id'] . "</td>";
+                                            echo "<td class='text-white'>" . $row['name'] . "</td>";
+                                            echo "<td class='text-white'>" . $row['address'] . "</td>";
+                                            echo "<td class='text-white'>" . $row['salary'] . "</td>";
+                                            echo "<td class='text-center'>";
+                                                echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3" title="View Record" data-toggle="tooltip" style="color: #28a745;">
+                                                          <span class="fa fa-eye"></span>
+                                                      </a>';
+                                                echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip" style="color: #ffc107;">
+                                                          <span class="fa fa-pencil"></span>
+                                                      </a>';
+                                                echo '<a href="delete.php?id=' . $row['id'] . '" title="Delete Record" data-toggle="tooltip" style="color: #dc3545;">
+                                                          <span class="fa fa-trash"></span>
+                                                      </a>';
                                             echo "</td>";
                                         echo "</tr>";
                                     }
-                                    echo "</tbody>";                            
+                                    echo "</tbody>";
                                 echo "</table>";
                                 // Free result set
                                 mysqli_free_result($result);
-                            } else{
+                            } else {
                                 echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
                             }
-                        } else{
+                        } else {
                             echo "Oops! Something went wrong. Please try again later.";
-                        } 
+                        }
                         // Close connection
                         mysqli_close($link);
                         ?>
-                    </div>  
-                </div>    
-            </div> 
-        </div>         
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-        </header>
+</header>
+
+    
         <!-- Icons Grid-->
         <section class="features-icons bg-light text-center">
             <div class="container">
