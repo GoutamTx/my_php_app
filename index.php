@@ -50,6 +50,7 @@
                 <a href="#projects" class="btn btn-info">Projects</a>
                 <a href="#about" class="btn btn-secondary">About</a>
                 <a href="#contact" class="btn btn-success">Contact</a>
+                <a href="#contact" class="btn btn-success">Testimonals</a>
                 <a class="btn btn-warning" href="#signup">Sign Up</a>
             </div>
         </div>
