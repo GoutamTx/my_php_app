@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
-        IMAGE_TAG = "${env.BUILD_ID}"  // Better versioning - use double slash for Groovy comments
+        IMAGE_TAG = "${env.BUILD_ID}" // Use BUILD_ID as the image tag
         GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
         GIT_BRANCH = 'main'
         COMPOSE_FILE = 'docker-compose.yml'
@@ -19,21 +19,20 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: "${GIT_BRANCH}", 
-                     url: "${GIT_REPO_URL}"
+                git branch: "${env.GIT_BRANCH}", url: "${env.GIT_REPO_URL}"
             }
         }
 
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'DOCKER_CREDENTIALS', 
-                    usernameVariable: 'DOCKER_USER', 
+                    credentialsId: 'DOCKER_CREDENTIALS',
+                    usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh """
-                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
-                    """
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
                 }
             }
         }
@@ -41,9 +40,9 @@ pipeline {
         stage('Build & Push') {
             steps {
                 script {
-                    docker.build("${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG}")
+                    def image = docker.build("${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG}")
                     docker.withRegistry('', 'DOCKER_CREDENTIALS') {
-                        docker.image("${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG}").push()
+                        image.push()
                     }
                 }
             }
@@ -51,10 +50,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh """
-                    docker-compose -f ${COMPOSE_FILE} down -v
+                sh '''
+                    docker-compose -f ${COMPOSE_FILE} down -v || true
                     docker-compose -f ${COMPOSE_FILE} up -d --build
-                """
+                '''
             }
         }
     }
@@ -64,11 +63,25 @@ pipeline {
             sh 'docker system prune -f --volumes || true'
             cleanWs()
         }
+
         success {
-            slackSend message: "Deployment successful: ${env.BUILD_URL}"
+            script {
+                try {
+                    slackSend message: "✅ Deployment successful: ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Slack plugin not available or not configured: ${e.getMessage()}"
+                }
+            }
         }
+
         failure {
-            slackSend message: "Deployment failed: ${env.BUILD_URL}"
+            script {
+                try {
+                    slackSend message: "❌ Deployment failed: ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Slack plugin not available or not configured: ${e.getMessage()}"
+                }
+            }
         }
     }
 }
