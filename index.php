@@ -30,25 +30,47 @@
             padding-bottom: 4rem;
         }
 
-         .btn-success {
+      .masthead {
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        padding: 30px 0;
+    }
+
+    .btn-success {
         padding: 10px 20px;
         font-size: 16px;
         border-radius: 5px;
     }
+
     .table {
         width: 100%;
         margin-top: 20px;
         margin-bottom: 30px;
     }
+
     .table td, .table th {
         text-align: center;
         padding: 15px;
     }
+
     .table-bordered {
         border: 1px solid #ddd;
     }
+
     .thead-dark {
-        background-color: #222;
+        background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent header */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Transparent hover effect */
+    }
+
+    .text-white {
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Making the "Add New Employee" button more prominent */
+    .pull-right {
+        margin-right: 20px;
     }
 
     </style>
@@ -99,7 +121,7 @@
                         $sql = "SELECT * FROM employees";
                         if ($result = mysqli_query($link, $sql)) {
                             if (mysqli_num_rows($result) > 0) {
-                                echo '<table class="table table-bordered table-striped table-hover" style="background-color:#343a40; border-radius: 10px; color:white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">';
+                                echo '<table class="table table-bordered table-striped table-hover" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; color:white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">';
                                     echo "<thead class='thead-dark'>";
                                         echo "<tr>";
                                             echo "<th style='font-size: 16px;'>#</th>";
@@ -148,7 +170,6 @@
         </div>
     </div>
 </header>
-    
         <!-- Icons Grid-->
         <section class="features-icons bg-light text-center">
             <div class="container">
