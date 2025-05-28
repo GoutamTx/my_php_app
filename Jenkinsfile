@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
-        IMAGE_TAG = "${env.BUILD_ID}" // Use BUILD_ID as the image tag
+        IMAGE_TAG = "${env.BUILD_ID}"
         GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
         GIT_BRANCH = 'main'
         COMPOSE_FILE = 'docker-compose.yml'
@@ -65,23 +65,11 @@ pipeline {
         }
 
         success {
-            script {
-                try {
-                    slackSend message: "✅ Deployment successful: ${env.BUILD_URL}"
-                } catch (e) {
-                    echo "Slack plugin not available or not configured: ${e.getMessage()}"
-                }
-            }
+            echo "✅ Deployment successful: ${env.BUILD_URL}"
         }
 
         failure {
-            script {
-                try {
-                    slackSend message: "❌ Deployment failed: ${env.BUILD_URL}"
-                } catch (e) {
-                    echo "Slack plugin not available or not configured: ${e.getMessage()}"
-                }
-            }
+            echo "❌ Deployment failed: ${env.BUILD_URL}"
         }
     }
 }
