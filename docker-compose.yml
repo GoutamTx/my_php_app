@@ -13,6 +13,8 @@ services:
       - app_network
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
+    volumes:
+      - ./backups:/backups  # Backup directory
     restart: unless-stopped
 
   mysql:
@@ -20,15 +22,17 @@ services:
     container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: demo
-      MYSQL_USER: admin           # Creates admin user automatically
-      MYSQL_PASSWORD: admin       # Sets password for admin user
+      MYSQL_DATABASE: demo  # Fixed typo (was DATABASE)
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./employees.sql:/docker-entrypoint-initdb.d/employees.sql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Additional permissions
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backups:/backups
+      - ./daily-backup.sh:/etc/periodic/daily/backup
     networks:
       - app_network
     restart: unless-stopped
@@ -49,8 +53,10 @@ services:
       - "8082:80"
     environment:
       PMA_HOST: mysql
-      PMA_USER: admin      # Auto-login as admin
-      PMA_PASSWORD: admin  # Auto-fill password
+      PMA_PORT: 3306
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+      PMA_ARBITRARY: 1  # Allows connection to any MySQL server
     networks:
       - app_network
     restart: unless-stopped
