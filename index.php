@@ -39,21 +39,39 @@
 </head>
 <body>
     <!-- Navigation-->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container">
-            <!-- <a class="navbar-brand" href="#!"> <img src="assets/img/Capture.PNG" alt="..." /></a> -->
-            <a href="https://www.testingxperts.com/">
-         <img alt="testingxperts" src="assets/img/Capture.PNG"
-         width="150" height="70"></a>          
-        
-            <div class="w3-right w3-hide-small">
-                <a href="#projects" class="btn btn-info">Projects</a>
-                <a href="#about" class="btn btn-secondary">About</a>
-                <a href="#contact" class="btn btn-success">Contact</a>
-                <a class="btn btn-warning" href="#signup">Sign Up</a>
-            </div>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="https://www.testingxperts.com/">
+            <img src="assets/img/Capture.PNG" alt="TestingXperts Logo" width="150" height="70" class="d-inline-block align-top">
+        </a>
+
+        <!-- Toggle button for mobile view -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-info mx-1" href="#projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-secondary mx-1" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-success mx-1" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-warning mx-1" href="#signup">Sign Up</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+    
     <!-- Masthead-->
     <header class="masthead" >
     <div class="container position-relative">
