@@ -20,7 +20,7 @@ services:
     container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: demo_db
+      MYSQL_DATABASE: demo
       MYSQL_USER: admin           # Creates admin user automatically
       MYSQL_PASSWORD: admin       # Sets password for admin user
     ports:
