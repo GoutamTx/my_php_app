@@ -1,69 +1,48 @@
 pipeline {
-
     agent any
 
     environment {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
         GIT_BRANCH = 'main'
-        GIT_REPO_URL = 'https://github.com/Ayushkr093/my-php-app.git'
-        COMMIT_HASH = ''
+        GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
     }
 
     stages {
-        stage('Clone Git Repository') {
+        stage('Checkout') {
             steps {
+                echo 'Cloning public repository...'
+                sh "git clone --branch ${GIT_BRANCH} ${GIT_REPO_URL} ."
                 script {
-                    echo 'Cloning repository...'
-                    sh 'rm -rf my-php-project'
-                    sh "git clone ${GIT_REPO_URL} my-php-project"
-                    dir('my-php-project') {
-                        sh "git checkout ${GIT_BRANCH}"
-                        COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                        env.COMMIT_HASH = COMMIT_HASH
-                    }
+                    env.COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+                    echo "Checked out commit: ${env.COMMIT_HASH}"
                 }
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Docker Login') {
             steps {
-                script {
-                    echo 'Logging in to Docker Hub...'
-                    withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-                    }
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
                 }
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build & Push Docker Image') {
             steps {
                 script {
-                    echo "Building Docker image with tag: ${COMMIT_HASH}"
-                    docker.build("${DOCKER_REGISTRY}/${APP_IMAGE}:${COMMIT_HASH}", './my-php-project')
-                }
-            }
-        }
-
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                script {
-                    echo 'Pushing Docker image to Docker Hub...'
-                    docker.image("${DOCKER_REGISTRY}/${APP_IMAGE}:${COMMIT_HASH}").push()
+                    def imageTag = "${DOCKER_REGISTRY}/${APP_IMAGE}:${env.COMMIT_HASH}"
+                    echo "Building and pushing image: ${imageTag}"
+                    docker.build(imageTag, ".")
+                    docker.image(imageTag).push()
                 }
             }
         }
 
         stage('Run with Docker Compose') {
             steps {
-                script {
-                    echo 'Running app with Docker Compose...'
-                    dir('my-php-project') {
-                        sh 'docker-compose down --volumes --remove-orphans'
-                        sh "TAG=${COMMIT_HASH} docker-compose up -d --build"
-                    }
-                }
+                sh 'docker-compose down --volumes --remove-orphans'
+                sh "TAG=${env.COMMIT_HASH} docker-compose up -d --build"
             }
         }
     }
