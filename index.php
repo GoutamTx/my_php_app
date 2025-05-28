@@ -29,14 +29,18 @@
             padding-top: 2rem;
             padding-bottom: 4rem;
         }
-
-      .masthead {
+ .masthead {
         background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-        padding: 30px 0;
+        padding: 40px 0;
+    }
+
+    .container {
+        max-width: 1200px; /* Increase the max width */
+        padding: 0 20px;
     }
 
     .btn-success {
-        padding: 10px 20px;
+        padding: 12px 20px;
         font-size: 16px;
         border-radius: 5px;
     }
@@ -68,7 +72,6 @@
         font-family: 'Arial', sans-serif;
     }
 
-    /* Making the "Add New Employee" button more prominent */
     .pull-right {
         margin-right: 20px;
     }
@@ -100,16 +103,16 @@
 
     
     <!-- Masthead-->
-    <header class="masthead">
-    <div class="container position-relative">
+     <header class="masthead">
+    <div class="container position-relative" style="max-width: 1200px; padding: 0 15px;">
         <div class="row justify-content-center">
             <div class="wrapper">
                 <div class="text-center text-white">
                     <div>
                         <!-- Title Section -->
-                        <h2 class="pull-left" style="color:#f5a623; font-size: 24px;">Tx Employees Details</h2>
+                        <h2 class="pull-left" style="color:#f5a623; font-size: 28px;">Tx Employees Details</h2>
                         <!-- Add New Employee Button -->
-                        <a href="create.php" class="btn btn-success pull-right mt-3" style="margin-bottom: 20px;">
+                        <a href="create.php" class="btn btn-success pull-right mt-3" style="margin-bottom: 20px; font-size: 16px; padding: 12px 20px;">
                             <i class="fa fa-plus"></i> Add New Employee
                         </a>
 
@@ -124,11 +127,11 @@
                                 echo '<table class="table table-bordered table-striped table-hover" style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; color:white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">';
                                     echo "<thead class='thead-dark'>";
                                         echo "<tr>";
-                                            echo "<th style='font-size: 16px;'>#</th>";
-                                            echo "<th style='font-size: 16px;'>Name</th>";
-                                            echo "<th style='font-size: 16px;'>Address</th>";
-                                            echo "<th style='font-size: 16px;'>Salary</th>";
-                                            echo "<th style='font-size: 16px;'>Action</th>";
+                                            echo "<th style='font-size: 18px;'>#</th>";
+                                            echo "<th style='font-size: 18px;'>Name</th>";
+                                            echo "<th style='font-size: 18px;'>Address</th>";
+                                            echo "<th style='font-size: 18px;'>Salary</th>";
+                                            echo "<th style='font-size: 18px;'>Action</th>";
                                         echo "</tr>";
                                     echo "</thead>";
                                     echo "<tbody>";
