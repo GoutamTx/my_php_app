@@ -3,466 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard | TestingXperts</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <title>Employee Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-red: #e63946;
-            --dark-red: #d00000;
-            --light-red: #ff686b;
-            --pure-white: #ffffff;
-            --off-white: #f8f9fa;
-            --dark-black: #212529;
-            --medium-gray: #495057;
-            --light-gray: #e9ecef;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--off-white);
-            color: var(--dark-black);
-            line-height: 1.6;
-        }
-        
-        /* Navbar Styles */
-        .navbar {
-            background-color: var(--dark-black);
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
-            border-bottom: 3px solid var(--primary-red);
-        }
-        
-        .navbar-brand img {
-            transition: transform 0.3s ease;
-            height: 50px;
-        }
-        
-        .navbar-brand img:hover {
-            transform: scale(1.05);
-        }
-        
-        .nav-link {
-            color: var(--pure-white) !important;
-            font-weight: 500;
-            margin: 0 0.5rem;
-            position: relative;
-            padding: 0.5rem 1rem !important;
-        }
-        
-        .nav-link:before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary-red);
-            visibility: hidden;
-            transition: all 0.3s ease-in-out;
-        }
-        
-        .nav-link:hover:before {
-            visibility: visible;
-            width: 100%;
-        }
-        
-        .btn-signup {
-            background-color: var(--primary-red);
-            color: white;
-            border-radius: 30px;
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-red);
-        }
-        
-        .btn-signup:hover {
-            background-color: transparent;
-            color: var(--primary-red);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3);
-        }
-        
-        /* Main Content */
-        .dashboard-container {
-            padding: 3rem 0;
-        }
-        
-        .dashboard-header {
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .dashboard-title {
-            color: var(--dark-black);
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .dashboard-title:after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 4px;
-            bottom: -10px;
-            left: 0;
-            background-color: var(--primary-red);
-        }
-        
-        /* Card Styles */
-        .data-card {
-            background-color: var(--pure-white);
-            border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-            border: none;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 2rem;
-        }
-        
-        .data-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-        }
-        
-        .card-header {
-            background-color: var(--dark-black);
-            color: var(--pure-white);
-            padding: 1.25rem 1.5rem;
-            border-bottom: 3px solid var(--primary-red);
-        }
-        
-        .card-header h3 {
-            margin: 0;
-            font-weight: 600;
-        }
-        
-        /* Table Styles */
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .table {
-            margin-bottom: 0;
-            color: var(--dark-black);
-        }
-        
-        .table thead th {
-            background-color: var(--dark-black);
-            color: var(--pure-white);
-            border-bottom: 2px solid var(--primary-red);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-            padding: 1rem;
-        }
-        
-        .table tbody tr {
-            transition: all 0.2s ease;
-        }
-        
-        .table tbody tr:hover {
-            background-color: rgba(230, 57, 70, 0.05);
-        }
-        
-        .table td {
-            padding: 1.25rem 1rem;
-            vertical-align: middle;
-            border-top: 1px solid var(--light-gray);
-        }
-        
-        /* Action Buttons */
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-view {
-            background-color: var(--medium-gray);
-            color: white;
-        }
-        
-        .btn-edit {
-            background-color: var(--primary-red);
-            color: white;
-        }
-        
-        .btn-delete {
-            background-color: var(--dark-black);
-            color: white;
-        }
-        
-        .action-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-view:hover {
-            background-color: #5a6268;
-        }
-        
-        .btn-edit:hover {
-            background-color: var(--dark-red);
-        }
-        
-        .btn-delete:hover {
-            background-color: #343a40;
-        }
-        
-        /* Add New Button */
-        .btn-add-new {
-            background-color: var(--primary-red);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 0.75rem 1.75rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-add-new i {
-            margin-right: 0.5rem;
-        }
-        
-        .btn-add-new:hover {
-            background-color: var(--dark-red);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
-        }
-        
-        /* Status Badges */
-        .badge {
-            padding: 0.5rem 0.75rem;
-            font-weight: 600;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
-            .navbar {
-                padding: 0.75rem 1rem;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .btn-add-new {
-                margin-top: 1rem;
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
             }
         }
-        
-        @media (max-width: 768px) {
-            .table td {
-                padding: 0.75rem;
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .nav-link {
+                @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105;
             }
-            
+            .btn {
+                @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+            }
+            .btn-primary {
+                @apply bg-primary-600 text-white hover:bg-primary-700 hover:shadow-lg;
+            }
+            .btn-outline {
+                @apply border border-gray-300 hover:bg-gray-50;
+            }
             .action-btn {
-                width: 28px;
-                height: 28px;
-                margin-right: 0.25rem;
+                @apply p-2 rounded-md transition-all duration-200 hover:scale-110;
+            }
+            .table-row {
+                @apply hover:bg-gray-50 transition-colors duration-150;
+            }
+            .pagination-btn {
+                @apply px-3 py-1 rounded-md border border-gray-300 hover:bg-gray-100 transition-colors;
+            }
+            .pagination-btn.active {
+                @apply bg-primary-600 text-white border-primary-600;
             }
         }
     </style>
 </head>
-<body>
-    <!-- Modern Dark Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="assets/img/Capture.PNG" alt="TestingXperts" class="d-inline-block align-top">
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people me-1"></i> Employees</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-graph-up me-1"></i> Analytics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-gear me-1"></i> Settings</a>
-                    </li>
-                </ul>
-                
-                <div class="d-flex">
-                    <div class="dropdown me-3">
-                        <a href="#" class="text-white dropdown-toggle" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-bell fs-5"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                3
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
-                            <li><h6 class="dropdown-header">Notifications</h6></li>
-                            <li><a class="dropdown-item" href="#">New employee added</a></li>
-                            <li><a class="dropdown-item" href="#">System update available</a></li>
-                            <li><a class="dropdown-item" href="#">Weekly report ready</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="dropdown">
-                        <a href="#" class="text-white dropdown-toggle d-flex align-items-center" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://via.placeholder.com/40" alt="User" class="rounded-circle me-2">
-                            <span>Admin</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i> Messages</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-                        </ul>
-                    </div>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Modern Navbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0">
+                        <img class="h-10 w-auto" src="assets/img/Capture.PNG" alt="TestingXperts">
+                    </a>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                    <a href="#projects" class="nav-link text-gray-700 hover:bg-gray-100">Projects</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:bg-gray-100">About</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:bg-gray-100">Contact</a>
+                    <a href="#testimonials" class="nav-link text-gray-700 hover:bg-gray-100">Testimonials</a>
+                    <a href="#signup" class="btn btn-primary ml-4">Sign Up</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Dashboard Content -->
-    <div class="container-fluid dashboard-container">
-        <div class="dashboard-header" data-aos="fade-down">
-            <h1 class="dashboard-title">Employee Management</h1>
-            <a href="create.php" class="btn btn-add-new">
-                <i class="bi bi-plus-lg"></i> Add New Employee
-            </a>
-        </div>
-        
-        <div class="row">
-            <div class="col-12" data-aos="fade-up">
-                <div class="data-card">
-                    <div class="card-header">
-                        <h3><i class="bi bi-table me-2"></i> Employee Records</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <?php
-                            // Include config file
-                            require_once "config.php";
-                            
-                            // Attempt select query execution
-                            $sql = "SELECT * FROM employees";
-                            if($result = mysqli_query($link, $sql)){
-                                if(mysqli_num_rows($result) > 0){
-                                    echo '<table class="table table-hover align-middle">';
-                                        echo "<thead>";
-                                            echo "<tr>";
-                                                echo "<th>ID</th>";
-                                                echo "<th>Employee</th>";
-                                                echo "<th>Position</th>";
-                                                echo "<th>Department</th>";
-                                                echo "<th>Salary</th>";
-                                                echo "<th>Status</th>";
-                                                echo "<th>Actions</th>";
-                                            echo "</tr>";
-                                        echo "</thead>";
-                                        echo "<tbody>";
-                                        while($row = mysqli_fetch_array($result)){
-                                            // Generate random status for demo purposes
-                                            $statuses = ['Active', 'On Leave', 'Terminated'];
-                                            $random_status = $statuses[array_rand($statuses)];
-                                            $status_class = '';
-                                            
-                                            if($random_status == 'Active') {
-                                                $status_class = 'bg-success';
-                                            } elseif($random_status == 'On Leave') {
-                                                $status_class = 'bg-warning text-dark';
-                                            } else {
-                                                $status_class = 'bg-secondary';
-                                            }
-                                            
-                                            echo "<tr>";
-                                                echo "<td><strong>" . $row['id'] . "</strong></td>";
-                                                echo "<td>";
-                                                echo "<div class='d-flex align-items-center'>";
-                                                echo "<img src='https://i.pravatar.cc/40?img=" . rand(1, 70) . "' alt='' class='rounded-circle me-3' width='40'>";
-                                                echo "<div>";
-                                                echo "<h6 class='mb-0'>" . $row['name'] . "</h6>";
-                                                echo "<small class='text-muted'>" . $row['email'] ?? 'employee@example.com' . "</small>";
-                                                echo "</div>";
-                                                echo "</div>";
-                                                echo "</td>";
-                                                echo "<td>Software Engineer</td>";
-                                                echo "<td>Development</td>";
-                                                echo "<td>$" . number_format($row['salary'], 2) . "</td>";
-                                                echo "<td><span class='badge " . $status_class . "'>" . $random_status . "</span></td>";
-                                                echo "<td>";
-                                                    echo '<a href="read.php?id='. $row['id'] .'" class="action-btn btn-view" title="View" data-bs-toggle="tooltip"><i class="bi bi-eye"></i></a>';
-                                                    echo '<a href="update.php?id='. $row['id'] .'" class="action-btn btn-edit" title="Edit" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>';
-                                                    echo '<a href="delete.php?id='. $row['id'] .'" class="action-btn btn-delete" title="Delete" data-bs-toggle="tooltip"><i class="bi bi-trash"></i></a>';
-                                                echo "</td>";
-                                            echo "</tr>";
-                                        }
-                                        echo "</tbody>";                            
-                                    echo "</table>";
-                                    // Free result set
-                                    mysqli_free_result($result);
-                                } else{
-                                    echo '<div class="alert alert-info text-center py-4"><i class="bi bi-info-circle-fill me-2"></i>No employee records were found.</div>';
-                                }
-                            } else{
-                                echo '<div class="alert alert-danger text-center py-4"><i class="bi bi-exclamation-triangle-fill me-2"></i>Oops! Something went wrong. Please try again later.</div>';
-                            } 
-                            // Close connection
-                            mysqli_close($link);
-                            ?>
-                        </div>
-                    </div>
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white shadow-xl rounded-xl overflow-hidden">
+            <!-- Table Header -->
+            <div class="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <h2 class="text-2xl font-bold text-gray-800">Tx Employees Details</h2>
+                <a href="create.php" class="btn btn-primary mt-4 sm:mt-0">
+                    <i class="fas fa-plus mr-2"></i> Add New Employee
+                </a>
+            </div>
+            
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <?php
+                // Include config file
+                require_once "config.php";
+                
+                // Pagination settings
+                $records_per_page = 4;
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $offset = ($page - 1) * $records_per_page;
+                
+                // Get total number of records
+                $total_records = 0;
+                $count_query = "SELECT COUNT(*) as total FROM employees";
+                if($count_result = mysqli_query($link, $count_query)) {
+                    $count_row = mysqli_fetch_assoc($count_result);
+                    $total_records = $count_row['total'];
+                }
+                
+                // Calculate total pages
+                $total_pages = ceil($total_records / $records_per_page);
+                
+                // Validate page number
+                if ($page < 1) $page = 1;
+                if ($page > $total_pages) $page = $total_pages;
+                
+                // Main query with pagination
+                $sql = "SELECT * FROM employees LIMIT $offset, $records_per_page";
+                if($result = mysqli_query($link, $sql)){
+                    if(mysqli_num_rows($result) > 0){
+                        echo '<table class="min-w-full divide-y divide-gray-200">';
+                            echo '<thead class="bg-gray-50">';
+                                echo '<tr>';
+                                    echo '<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>';
+                                    echo '<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>';
+                                    echo '<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>';
+                                    echo '<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Salary</th>';
+                                    echo '<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>';
+                                echo '</tr>';
+                            echo '</thead>';
+                            echo '<tbody class="bg-white divide-y divide-gray-200">';
+                            while($row = mysqli_fetch_array($result)){
+                                echo '<tr class="table-row">';
+                                    echo '<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">' . $row['id'] . '</td>';
+                                    echo '<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">' . $row['name'] . '</td>';
+                                    echo '<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">' . $row['address'] . '</td>';
+                                    echo '<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$' . number_format($row['salary'], 2) . '</td>';
+                                    echo '<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex space-x-2">';
+                                        echo '<a href="read.php?id='. $row['id'] .'" class="action-btn text-blue-500 hover:text-blue-700" title="View">';
+                                            echo '<i class="fas fa-eye"></i>';
+                                        echo '</a>';
+                                        echo '<a href="update.php?id='. $row['id'] .'" class="action-btn text-green-500 hover:text-green-700" title="Edit">';
+                                            echo '<i class="fas fa-edit"></i>';
+                                        echo '</a>';
+                                        echo '<a href="delete.php?id='. $row['id'] .'" class="action-btn text-red-500 hover:text-red-700" title="Delete">';
+                                            echo '<i class="fas fa-trash"></i>';
+                                        echo '</a>';
+                                    echo '</td>';
+                                echo '</tr>';
+                            }
+                            echo '</tbody>';                            
+                        echo '</table>';
+                        
+                        // Free result set
+                        mysqli_free_result($result);
+                    } else{
+                        echo '<div class="p-6 text-center text-gray-500">No records were found.</div>';
+                    }
+                } else{
+                    echo '<div class="p-6 text-center text-red-500">Oops! Something went wrong. Please try again later.</div>';
+                } 
+                
+                // Close connection
+                mysqli_close($link);
+                ?>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between">
+                <div class="text-sm text-gray-500 mb-4 sm:mb-0">
+                    Showing <span class="font-medium"><?php echo $offset + 1; ?></span> to 
+                    <span class="font-medium"><?php echo min($offset + $records_per_page, $total_records); ?></span> of 
+                    <span class="font-medium"><?php echo $total_records; ?></span> results
+                </div>
+                <div class="flex space-x-1">
+                    <?php if ($page > 1): ?>
+                        <a href="?page=1" class="pagination-btn">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                        <a href="?page=<?php echo $page - 1; ?>" class="pagination-btn">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    <?php endif; ?>
+                    
+                    <?php 
+                    // Display page numbers
+                    $visible_pages = 3; // Number of pages to show around current page
+                    $start_page = max(1, $page - $visible_pages);
+                    $end_page = min($total_pages, $page + $visible_pages);
+                    
+                    for ($i = $start_page; $i <= $end_page; $i++): ?>
+                        <a href="?page=<?php echo $i; ?>" class="pagination-btn <?php echo $i == $page ? 'active' : ''; ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    <?php endfor; ?>
+                    
+                    <?php if ($page < $total_pages): ?>
+                        <a href="?page=<?php echo $page + 1; ?>" class="pagination-btn">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                        <a href="?page=<?php echo $total_pages; ?>" class="pagination-btn">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS Animation -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS animation
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-        
-        // Initialize tooltips
+        // Simple confirmation for delete actions
         document.addEventListener('DOMContentLoaded', function() {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
+            const deleteButtons = document.querySelectorAll('a[title="Delete"]');
+            
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!confirm('Are you sure you want to delete this record?')) {
+                        e.preventDefault();
+                    }
+                });
             });
         });
     </script>
