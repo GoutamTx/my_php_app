@@ -7,7 +7,8 @@ services:
     ports:
       - "3002:80"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - app_network
     environment:
@@ -18,18 +19,21 @@ services:
     image: mysql:5.7
     container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: Testing
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: demo_db
+      MYSQL_USER: admin           # Creates admin user automatically
+      MYSQL_PASSWORD: admin       # Sets password for admin user
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./employees.sql:/docker-entrypoint-initdb.d/employees.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Additional permissions
     networks:
       - app_network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-pTesting"]
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-padmin"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -39,12 +43,14 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
-      - "8081:80"
+      - "8082:80"
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: Testing
+      PMA_USER: admin      # Auto-login as admin
+      PMA_PASSWORD: admin  # Auto-fill password
     networks:
       - app_network
     restart: unless-stopped
