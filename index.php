@@ -42,25 +42,6 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-up': 'slideUp 0.3s ease-out',
-                        'pulse-soft': 'pulseSoft 2s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        pulseSoft: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0.8' }
-                        }
                     }
                 }
             }
@@ -75,12 +56,10 @@
         
         .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: perspective(1000px) rotateX(0deg);
         }
         
         .card-hover:hover {
-            transform: perspective(1000px) rotateX(2deg) translateY(-5px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
         .action-btn {
@@ -88,50 +67,15 @@
             overflow: hidden;
         }
         
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .action-btn:hover::before {
-            left: 100%;
-        }
-        
-        .table-row {
-            transition: all 0.2s ease;
-        }
-        
-        .table-row:hover {
-            background: linear-gradient(90deg, #f8fafc, #ffffff);
-            transform: translateX(4px);
-        }
-        
         .stats-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: relative;
             overflow: hidden;
         }
-        
-        .stats-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse-soft 3s infinite;
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-sans antialiased">
-    <!-- Enhanced Navbar with Glass Effect -->
+    <!-- Navbar -->
     <nav class="glass-effect sticky top-0 z-50 border-b border-white/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -148,7 +92,7 @@
                     <a href="#about" class="px-4 py-2 rounded-lg font-medium text-secondary-700 hover:bg-white/50 hover:text-primary-600 transition-all duration-200">About</a>
                     <a href="#contact" class="px-4 py-2 rounded-lg font-medium text-secondary-700 hover:bg-white/50 hover:text-primary-600 transition-all duration-200">Contact</a>
                     <a href="#testimonials" class="px-4 py-2 rounded-lg font-medium text-secondary-700 hover:bg-white/50 hover:text-primary-600 transition-all duration-200">Testimonials</a>
-                    <a href="#signup" class="ml-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    <a href="#signup" class="ml-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg">
                         Sign Up
                     </a>
                 </div>
@@ -185,44 +129,44 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="stats-card text-white p-6 rounded-xl shadow-lg card-hover">
                 <div class="flex items-center justify-between">
-                    <div class="relative z-10">
+                    <div>
                         <p class="text-white/80 text-sm font-medium">Total Employees</p>
                         <p class="text-3xl font-bold"><?php echo $total_employees; ?></p>
                     </div>
-                    <div class="relative z-10">
+                    <div>
                         <i class="fas fa-users text-3xl text-white/60"></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 rounded-xl shadow-lg card-hover relative overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 rounded-xl shadow-lg card-hover">
                 <div class="flex items-center justify-between">
-                    <div class="relative z-10">
+                    <div>
                         <p class="text-white/80 text-sm font-medium">Total Payroll</p>
                         <p class="text-3xl font-bold">$<?php echo number_format($total_salary, 0); ?></p>
                     </div>
-                    <div class="relative z-10">
+                    <div>
                         <i class="fas fa-money-bill-wave text-3xl text-white/60"></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-xl shadow-lg card-hover relative overflow-hidden">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-xl shadow-lg card-hover">
                 <div class="flex items-center justify-between">
-                    <div class="relative z-10">
+                    <div>
                         <p class="text-white/80 text-sm font-medium">Avg Salary</p>
                         <p class="text-3xl font-bold">$<?php echo number_format($avg_salary, 0); ?></p>
                     </div>
-                    <div class="relative z-10">
+                    <div>
                         <i class="fas fa-chart-line text-3xl text-white/60"></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-r from-pink-500 to-rose-600 text-white p-6 rounded-xl shadow-lg card-hover relative overflow-hidden">
+            <div class="bg-gradient-to-r from-pink-500 to-rose-600 text-white p-6 rounded-xl shadow-lg card-hover">
                 <div class="flex items-center justify-between">
-                    <div class="relative z-10">
+                    <div>
                         <p class="text-white/80 text-sm font-medium">This Month</p>
                         <p class="text-3xl font-bold">+8</p>
                     </div>
-                    <div class="relative z-10">
+                    <div>
                         <i class="fas fa-user-plus text-3xl text-white/60"></i>
                     </div>
                 </div>
@@ -231,7 +175,7 @@
 
         <!-- Main Content Card -->
         <div class="bg-white/70 backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden border border-white/20 card-hover">
-            <!-- Enhanced Header -->
+            <!-- Header with Search and Filters -->
             <div class="px-8 py-6 bg-gradient-to-r from-slate-50 to-blue-50 border-b border-gray-200/50">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div>
@@ -247,10 +191,18 @@
                             <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
                         </div>
                         <div class="flex gap-2">
-                            <button class="px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors bg-white/80">
-                                <i class="fas fa-filter mr-2"></i>Filter
-                            </button>
-                            <a href="create.php" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                            <div class="relative">
+                                <select id="salaryFilter" class="appearance-none px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80 pr-8">
+                                    <option value="">All Salaries</option>
+                                    <option value="0-40000">Below $40k</option>
+                                    <option value="40000-60000">$40k - $60k</option>
+                                    <option value="60000-80000">$60k - $80k</option>
+                                    <option value="80000-100000">$80k - $100k</option>
+                                    <option value="100000">Above $100k</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-4 text-gray-400 pointer-events-none"></i>
+                            </div>
+                            <a href="create.php" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg">
                                 <i class="fas fa-plus mr-2"></i> Add New Employee
                             </a>
                         </div>
@@ -258,7 +210,7 @@
                 </div>
             </div>
             
-            <!-- Enhanced Table -->
+            <!-- Table -->
             <div class="overflow-x-auto">
                 <?php
                 // Pagination settings
@@ -288,42 +240,21 @@
                         echo '<table class="min-w-full divide-y divide-gray-200/50" id="employeeTable">';
                             echo '<thead class="bg-gradient-to-r from-gray-50 to-slate-100">';
                                 echo '<tr>';
-                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">';
-                                        echo '<div class="flex items-center space-x-1 cursor-pointer hover:text-primary-600">';
-                                            echo '<span>ID</span>';
-                                            echo '<i class="fas fa-sort text-xs"></i>';
-                                        echo '</div>';
-                                    echo '</th>';
-                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">';
-                                        echo '<div class="flex items-center space-x-1 cursor-pointer hover:text-primary-600">';
-                                            echo '<span>Employee</span>';
-                                            echo '<i class="fas fa-sort text-xs"></i>';
-                                        echo '</div>';
-                                    echo '</th>';
-                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">';
-                                        echo '<div class="flex items-center space-x-1 cursor-pointer hover:text-primary-600">';
-                                            echo '<span>Address</span>';
-                                            echo '<i class="fas fa-sort text-xs"></i>';
-                                        echo '</div>';
-                                    echo '</th>';
-                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">';
-                                        echo '<div class="flex items-center space-x-1 cursor-pointer hover:text-primary-600">';
-                                            echo '<span>Salary</span>';
-                                            echo '<i class="fas fa-sort text-xs"></i>';
-                                        echo '</div>';
-                                    echo '</th>';
+                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">ID</th>';
+                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Employee</th>';
+                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Address</th>';
+                                    echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Salary</th>';
                                     echo '<th scope="col" class="px-8 py-4 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Actions</th>';
                                 echo '</tr>';
                             echo '</thead>';
                             echo '<tbody class="bg-white/50 divide-y divide-gray-200/30" id="tableBody">';
                             
-                            $animation_delay = 0;
                             while($row = mysqli_fetch_array($result)){
                                 $initials = strtoupper(substr($row['name'], 0, 1) . substr(strstr($row['name'], ' '), 1, 1));
                                 $colors = ['from-blue-400 to-purple-500', 'from-pink-400 to-red-500', 'from-green-400 to-blue-500', 'from-yellow-400 to-orange-500', 'from-purple-400 to-pink-500'];
                                 $color = $colors[($row['id'] - 1) % count($colors)];
                                 
-                                echo '<tr class="table-row animate-fade-in" style="animation-delay: ' . ($animation_delay * 0.1) . 's;">';
+                                echo '<tr class="hover:bg-gray-50">';
                                     echo '<td class="px-8 py-6 whitespace-nowrap">';
                                         echo '<div class="flex items-center">';
                                             echo '<div class="w-2 h-2 bg-green-400 rounded-full mr-3"></div>';
@@ -362,19 +293,18 @@
                                     echo '</td>';
                                     echo '<td class="px-8 py-6 whitespace-nowrap">';
                                         echo '<div class="flex space-x-2">';
-                                            echo '<a href="read.php?id=' . $row['id'] . '" class="action-btn p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200" title="View Details">';
+                                            echo '<a href="read.php?id=' . $row['id'] . '" class="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-all duration-200" title="View Details">';
                                                 echo '<i class="fas fa-eye"></i>';
                                             echo '</a>';
-                                            echo '<a href="update.php?id=' . $row['id'] . '" class="action-btn p-2 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-all duration-200" title="Edit">';
+                                            echo '<a href="update.php?id=' . $row['id'] . '" class="p-2 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-all duration-200" title="Edit">';
                                                 echo '<i class="fas fa-edit"></i>';
                                             echo '</a>';
-                                            echo '<a href="delete.php?id=' . $row['id'] . '" class="action-btn p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-all duration-200" title="Delete" onclick="return confirmDelete()">';
+                                            echo '<a href="delete.php?id=' . $row['id'] . '" class="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-all duration-200" title="Delete" onclick="return confirmDelete()">';
                                                 echo '<i class="fas fa-trash"></i>';
                                             echo '</a>';
                                         echo '</div>';
                                     echo '</td>';
                                 echo '</tr>';
-                                $animation_delay++;
                             }
                             echo '</tbody>';                            
                         echo '</table>';
@@ -405,7 +335,7 @@
                 ?>
             </div>
             
-            <!-- Enhanced Pagination -->
+            <!-- Pagination -->
             <?php if($total_records > 0): ?>
             <div class="px-8 py-6 bg-gradient-to-r from-slate-50 to-blue-50 border-t border-gray-200/50">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -457,45 +387,53 @@
     ?>
 
     <script>
-        // Enhanced search functionality
+        // Search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const tableRows = document.querySelectorAll('#tableBody tr');
             
             tableRows.forEach(row => {
                 const text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
-                    row.style.animation = 'fadeIn 0.3s ease-in-out';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
             });
         });
 
-        // Enhanced delete confirmation
-        function confirmDelete() {
-            return confirm('⚠️ Are you sure you want to delete this employee?\n\nThis action cannot be undone.');
-        }
-
-        // Add loading states for action buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            const actionButtons = document.querySelectorAll('.action-btn');
+        // Salary filter functionality
+        document.getElementById('salaryFilter').addEventListener('change', function(e) {
+            const value = e.target.value;
+            const tableRows = document.querySelectorAll('#tableBody tr');
             
-            actionButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.getAttribute('title') !== 'Delete') {
-                        const icon = this.querySelector('i');
-                        const originalClass = icon.className;
-                        icon.className = 'fas fa-spinner fa-spin';
-                        
-                        setTimeout(() => {
-                            icon.className = originalClass;
-                        }, 1000);
+            tableRows.forEach(row => {
+                const salaryCell = row.querySelector('td:nth-child(4) span');
+                if (!salaryCell) return;
+                
+                const salaryText = salaryCell.textContent.replace(/\D/g, '');
+                const salary = parseInt(salaryText);
+                
+                let shouldShow = true;
+                
+                if (value) {
+                    if (value === '0-40000') {
+                        shouldShow = salary < 40000;
+                    } else if (value === '40000-60000') {
+                        shouldShow = salary >= 40000 && salary < 60000;
+                    } else if (value === '60000-80000') {
+                        shouldShow = salary >= 60000 && salary < 80000;
+                    } else if (value === '80000-100000') {
+                        shouldShow = salary >= 80000 && salary < 100000;
+                    } else if (value === '100000') {
+                        shouldShow = salary >= 100000;
                     }
-                });
+                }
+                
+                row.style.display = shouldShow ? '' : 'none';
             });
         });
+
+        // Delete confirmation
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this employee? This action cannot be undone.');
+        }
 
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
@@ -509,19 +447,6 @@
             if (e.altKey && e.key === 's') {
                 e.preventDefault();
                 document.getElementById('searchInput').focus();
-            }
-        });
-
-        // Add tooltips for keyboard shortcuts
-        document.addEventListener('DOMContentLoaded', function() {
-            const addButton = document.querySelector('a[href="create.php"]');
-            if (addButton) {
-                addButton.setAttribute('title', 'Add New Employee (Alt+N)');
-            }
-            
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.setAttribute('title', 'Search employees (Alt+S)');
             }
         });
     </script>
