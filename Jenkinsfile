@@ -11,6 +11,18 @@ pipeline {
     }
 
     stages {
+        stage('Clean Previous Docker Resources') {
+            steps {
+                sh '''
+                    echo "🧹 Cleaning up existing Docker containers, volumes, and networks..."
+                    docker rm -f $(docker ps -aq) || true
+                    docker volume rm $(docker volume ls -q) || true
+                    docker network prune -f || true
+                    docker system prune -af --volumes || true
+                '''
+            }
+        }
+
         stage('Clean Workspace') {
             steps {
                 cleanWs()
@@ -51,13 +63,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    # Clean up existing conflicting container
-                    docker rm -f mysql_db || true
-                    
-                    # Shut down old containers and volumes if any
-                    docker-compose -f ${COMPOSE_FILE} down -v || true
-                    
-                    # Build and deploy new containers
                     docker-compose -f ${COMPOSE_FILE} up -d --build
                 '''
             }
