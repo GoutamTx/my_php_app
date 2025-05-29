@@ -51,7 +51,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
+                    # Clean up existing conflicting container
+                    docker rm -f mysql_db || true
+                    
+                    # Shut down old containers and volumes if any
                     docker-compose -f ${COMPOSE_FILE} down -v || true
+                    
+                    # Build and deploy new containers
                     docker-compose -f ${COMPOSE_FILE} up -d --build
                 '''
             }
