@@ -5,7 +5,7 @@ pipeline {
         DOCKER_REGISTRY = 'ayushkr08'
         APP_IMAGE = 'my_php_app'
         IMAGE_TAG = "${env.BUILD_ID}"
-        GIT_REPO_URL = 'https://github.com/Ayushkr093/my_php_app.git'
+        GIT_REPO_URL = 'https://github.com/GoutamTx/my_php_app.git'
         GIT_BRANCH = 'main'
         COMPOSE_FILE = 'docker-compose.yml'
     }
@@ -38,7 +38,7 @@ pipeline {
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'DOCKER_CREDENTIALS',
+                    credentialsId: 'docker-hub-creds',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
