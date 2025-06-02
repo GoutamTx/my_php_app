@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     def image = docker.build("${DOCKER_REGISTRY}/${APP_IMAGE}:${IMAGE_TAG}")
-                    docker.withRegistry('', 'DOCKER_CREDENTIALS') {
+                    docker.withRegistry('', 'docker-hub-creds') {
                         image.push()
                     }
                 }
