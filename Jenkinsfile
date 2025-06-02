@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Clean Previous Docker Resources') {
             steps {
-                sh '''
+                bat '''
                     echo "🧹 Cleaning up existing Docker containers, volumes, and networks..."
                     docker rm -f $(docker ps -aq) || true
                     docker volume rm $(docker volume ls -q) || true
@@ -62,7 +62,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
+                bat '''
                     docker-compose -f ${COMPOSE_FILE} up -d --build
                 '''
             }
@@ -71,7 +71,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker system prune -f --volumes || true'
+            bat 'docker system prune -f --volumes || true'
             cleanWs()
         }
 
