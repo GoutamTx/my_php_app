@@ -14,11 +14,11 @@ pipeline {
         stage('Clean Previous Docker Resources') {
             steps {
                 bat '''
-                    echo 🧹 Cleaning up existing Docker containers, volumes, and networks...
-                    for /f "tokens=*" %%i in ('docker ps -aq') do docker rm -f %%i
-                    for /f "tokens=*" %%i in ('docker volume ls -q') do docker volume rm %%i
-                    docker network prune -f
-                    docker system prune -af --volumes
+                    echo "🧹 Cleaning up existing Docker containers, volumes, and networks..."
+                    docker rm -f $(docker ps -aq) || true
+                    docker volume rm $(docker volume ls -q) || true
+                    docker network prune -f || true
+                    docker system prune -af --volumes || true
                 '''
             }
         }
@@ -42,8 +42,8 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    bat '''
-                        echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                     '''
                 }
             }
@@ -62,16 +62,16 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat """
+                bat '''
                     docker-compose -f ${COMPOSE_FILE} up -d --build
-                """
+                '''
             }
         }
     }
 
     post {
         always {
-            bat 'docker system prune -f --volumes'
+            bat 'docker system prune -f --volumes || true'
             cleanWs()
         }
 
